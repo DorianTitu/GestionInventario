@@ -1,0 +1,193 @@
+{
+  "products": [
+    {
+      "id": "FIL-001",
+      "nombre": "PLA+ Negro",
+      "material": "PLA",
+      "color": "Negro",
+      "precioVenta": 22.00,
+      "proveedor": "eSUN",
+      "stockActual": 50
+    },
+    {
+      "id": "FIL-002",
+      "nombre": "PLA+ Gris",
+      "material": "PLA",
+      "color": "Gris",
+      "precioVenta": 22.00,
+      "proveedor": "eSUN",
+      "stockActual": 30
+    },
+    {
+      "id": "FIL-003",
+      "nombre": "PLA+ Gris",
+      "material": "PLA",
+      "color": "Gris",
+      "precioVenta": 22.00,
+      "proveedor": "eSUN",
+      "stockActual": 10
+    },
+    {
+      "id": "FIL-004",
+      "nombre": "PLA+ Beige",
+      "material": "PLA",
+      "color": "Beige",
+      "precioVenta": 22.00,
+      "proveedor": "eSUN",
+      "stockActual": 10
+    },
+    {
+      "id": "FIL-005",
+      "nombre": "PLA+ Café Claro",
+      "material": "PLA",
+      "color": "Café Claro",
+      "precioVenta": 22.00,
+      "proveedor": "eSUN",
+      "stockActual": 9
+    },
+    {
+      "id": "FIL-006",
+      "nombre": "PLA+ Verde",
+      "material": "PLA",
+      "color": "Verde",
+      "precioVenta": 22.00,
+      "proveedor": "eSUN",
+      "stockActual": 10
+    },
+    {
+      "id": "FIL-007",
+      "nombre": "PLA Blanco",
+      "material": "PLA",
+      "color": "Blanco",
+      "precioVenta": 20.00,
+      "proveedor": "eSUN",
+      "stockActual": 19
+    },
+    {
+      "id": "FIL-008",
+      "nombre": "PLA Negro",
+      "material": "PLA",
+      "color": "Negro",
+      "precioVenta": 20.00,
+      "proveedor": "eSUN",
+      "stockActual": 17
+    },
+    {
+      "id": "FIL-009",
+      "nombre": "PLA Gris",
+      "material": "PLA",
+      "color": "Gris",
+      "precioVenta": 20.00,
+      "proveedor": "eSUN",
+      "stockActual": 10
+    },
+    {
+      "id": "FIL-010",
+      "nombre": "PLA Azul",
+      "material": "PLA",
+      "color": "Azul",
+      "precioVenta": 20.00,
+      "proveedor": "eSUN",
+      "stockActual": 10
+    },
+    {
+      "id": "FIL-011",
+      "nombre": "PLA Blanco Hueso",
+      "material": "PLA",
+      "color": "Blanco Hueso",
+      "precioVenta": 20.00,
+      "proveedor": "eSUN",
+      "stockActual": 10
+    },
+    {
+      "id": "FIL-012",
+      "nombre": "PLA Azul Cielo",
+      "material": "PLA",
+      "color": "Azul Cielo",
+      "precioVenta": 20.00,
+      "proveedor": "eSUN",
+      "stockActual": 9
+    },
+    {
+      "id": "FIL-013",
+      "nombre": "PLA Rojo",
+      "material": "PLA",
+      "color": "Rojo",
+      "precioVenta": 20.00,
+      "proveedor": "eSUN",
+      "stockActual": 10
+    },
+    {
+      "id": "FIL-014",
+      "nombre": "PLA Verde Luminoso",
+      "material": "PLA",
+      "color": "Verde Luminoso",
+      "precioVenta": 24.00,
+      "proveedor": "eSUN",
+      "stockActual": 9
+    },
+    {
+      "id": "FIL-015",
+      "nombre": "PLA Dorado Seda",
+      "material": "PLA",
+      "color": "Dorado Seda",
+      "precioVenta": 24.00,
+      "proveedor": "eSUN",
+      "stockActual": 10
+    },
+    {
+      "id": "FIL-016",
+      "nombre": "PLA Marfil",
+      "material": "PLA",
+      "color": "Marfil",
+      "precioVenta": 24.00,
+      "proveedor": "eSUN",
+      "stockActual": 8
+    },
+    {
+      "id": "FIL-017",
+      "nombre": "PLA Madera Birch",
+      "material": "PLA",
+      "color": "Madera Birch",
+      "precioVenta": 24.00,
+      "proveedor": "eSUN",
+      "stockActual": 10
+    },
+    {
+      "id": "FIL-018",
+      "nombre": "PETG Negro Básic",
+      "material": "PETG",
+      "color": "Negro",
+      "precioVenta": 20.00,
+      "proveedor": "eSUN",
+      "stockActual": 3
+    },
+    {
+      "id": "FIL-019",
+      "nombre": "PETG Blanco",
+      "material": "PETG",
+      "color": "Blanco",
+      "precioVenta": 20.00,
+      "proveedor": "eSUN",
+      "stockActual": 8
+    },
+    {
+      "id": "FIL-020",
+      "nombre": "PETG Negro",
+      "material": "PETG",
+      "color": "Negro",
+      "precioVenta": 20.00,
+      "proveedor": "eSUN",
+      "stockActual": 10
+    },
+    {
+      "id": "FIL-021",
+      "nombre": "PETG Blanco",
+      "material": "PETG",
+      "color": "Blanco",
+      "precioVenta": 20.00,
+      "proveedor": "eSUN",
+      "stockActual": 8
+    }
+  ]
+}
