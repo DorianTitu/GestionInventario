@@ -1,0 +1,280 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.transaction-modal {
+  width: 100%;
+  max-width: 600px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #d0d0d0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  transition: background-color 0.2s;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  background-color: #f5f5f5;
+}
+
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.product-info {
+  background: #f5f5f5;
+  padding: 12px;
+  border-radius: 3px;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+.product-info p {
+  margin: 0;
+  color: #666;
+}
+
+.product-info strong {
+  color: #1a1a1a;
+}
+
+.filter-section {
+  margin-bottom: 16px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 6px 12px;
+  border: 1px solid #d0d0d0;
+  background: white;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 12px;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: #0066cc;
+  color: #0066cc;
+}
+
+.filter-btn.active {
+  background: #0066cc;
+  color: white;
+  border-color: #0066cc;
+}
+
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.transaction-item {
+  border: 1px solid #d0d0d0;
+  border-radius: 3px;
+  padding: 12px;
+  background: white;
+  transition: all 0.2s;
+}
+
+.transaction-item:hover {
+  border-color: #0066cc;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.transaction-item.sale {
+  border-left: 3px solid #1b5e20;
+}
+
+.transaction-item.restock {
+  border-left: 3px solid #d32f2f;
+}
+
+.transaction-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.transaction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.transaction-type {
+  padding: 3px 8px;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.sale-badge {
+  background: #e8f5e9;
+  color: #1b5e20;
+}
+
+.restock-badge {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.transaction-date {
+  font-size: 12px;
+  color: #999;
+}
+
+.transaction-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid #e8e8e8;
+  font-size: 12px;
+}
+
+.transaction-details p {
+  margin: 0;
+  color: #666;
+}
+
+.transaction-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  font-size: 12px;
+}
+
+.transaction-details .total {
+  font-weight: 600;
+  color: #0066cc;
+  margin-top: 2px;
+  font-size: 13px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 30px 20px;
+  color: #999;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.modal-footer {
+  padding: 16px 20px 0 20px;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #d0d0d0;
+  margin-top: 8px;
+}
+
+.btn-cancel {
+  padding: 8px 14px;
+  background: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+  background: #0052a3;
+}
+
+@media (max-width: 600px) {
+  .transaction-modal {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .filter-buttons {
+    flex-direction: column;
+  }
+
+  .filter-btn {
+    width: 100%;
+  }
+
+  .transaction-row {
+    grid-template-columns: 1fr;
+  }
+
+  .transaction-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

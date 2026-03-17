@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { getProducts, deleteProduct, searchProducts } from '../services/inventoryService';
+import { getProducts, deleteProduct, searchProducts, updateStock, recordSale, recordRestock, getProductById } from '../services/inventoryService';
 import ProductForm from './ProductForm';
 import InventoryTable from './InventoryTable';
+import StockModal from './StockModal';
+import SaleModal from './SaleModal';
+import RestockModal from './RestockModal';
+import TransactionHistory from './TransactionHistory';
 import '../styles/App.css';
 
 function App() {
@@ -10,6 +14,10 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [editingStockId, setEditingStockId] = useState(null);
+  const [sellingProductId, setSellingProductId] = useState(null);
+  const [restockingProductId, setRestockingProductId] = useState(null);
+  const [historyProductId, setHistoryProductId] = useState(null);
 
   // Cargar productos al montar
   useEffect(() => {
@@ -73,6 +81,54 @@ function App() {
     document.body.removeChild(element);
   };
 
+  const handleEditStock = (id) => {
+    setEditingStockId(id);
+  };
+
+  const handleStockSave = (id, newStock) => {
+    try {
+      updateStock(id, newStock);
+      loadProducts();
+      setEditingStockId(null);
+    } catch (error) {
+      alert('Error al actualizar stock: ' + error.message);
+    }
+  };
+
+  const handleSellClick = (id) => {
+    setSellingProductId(id);
+  };
+
+  const handleSaleSave = (saleData) => {
+    try {
+      recordSale(sellingProductId, saleData);
+      loadProducts();
+      setSellingProductId(null);
+      alert('¡Venta registrada exitosamente!');
+    } catch (error) {
+      alert('Error al registrar venta: ' + error.message);
+    }
+  };
+
+  const handleRestockClick = (id) => {
+    setRestockingProductId(id);
+  };
+
+  const handleRestockSave = (units) => {
+    try {
+      recordRestock(restockingProductId, units);
+      loadProducts();
+      setRestockingProductId(null);
+      alert('¡Inventario recargado exitosamente!');
+    } catch (error) {
+      alert('Error al recargar inventario: ' + error.message);
+    }
+  };
+
+  const handleViewHistory = (id) => {
+    setHistoryProductId(id);
+  };
+
   return (
     <div className="app-container">
       <header className="app-header">
@@ -112,10 +168,46 @@ function App() {
         />
       )}
 
+      {editingStockId && (
+        <StockModal
+          productId={editingStockId}
+          onSave={handleStockSave}
+          onCancel={() => setEditingStockId(null)}
+        />
+      )}
+
+      {sellingProductId && (
+        <SaleModal
+          product={getProductById(sellingProductId)}
+          onSave={handleSaleSave}
+          onClose={() => setSellingProductId(null)}
+        />
+      )}
+
+      {restockingProductId && (
+        <RestockModal
+          product={getProductById(restockingProductId)}
+          onSave={handleRestockSave}
+          onClose={() => setRestockingProductId(null)}
+        />
+      )}
+
+      {historyProductId && (
+        <TransactionHistory
+          productId={historyProductId}
+          productName={getProductById(historyProductId)?.nombre}
+          onClose={() => setHistoryProductId(null)}
+        />
+      )}
+
       <InventoryTable
         products={filteredProducts}
         onEdit={handleEditClick}
         onDelete={handleDelete}
+        onEditStock={handleEditStock}
+        onSell={handleSellClick}
+        onRestock={handleRestockClick}
+        onViewHistory={handleViewHistory}
       />
     </div>
   );

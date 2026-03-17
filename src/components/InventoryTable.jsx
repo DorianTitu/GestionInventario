@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/InventoryTable.css';
 
-function InventoryTable({ products, onEdit, onDelete }) {
+function InventoryTable({ products, onEdit, onEditStock, onDelete, onSell, onRestock, onViewHistory }) {
   if (products.length === 0) {
     return (
       <div className="empty-state">
@@ -39,25 +39,54 @@ function InventoryTable({ products, onEdit, onDelete }) {
               <td className="price-cell">${product.precioVenta.toFixed(2)}</td>
               <td>{product.proveedor}</td>
               <td className="stock-cell">
-                <span className={`stock-badge ${product.stockActual <= 10 ? 'low' : 'normal'}`}>
+                <button 
+                  onClick={() => onEditStock(product.id)}
+                  className={`stock-badge ${product.stockActual <= 10 ? 'low' : 'normal'}`}
+                  title="Click para editar stock"
+                >
                   {product.stockActual}
-                </span>
+                </button>
               </td>
               <td className="actions-cell">
-                <button
-                  onClick={() => onEdit(product.id)}
-                  className="btn btn-edit"
-                  title="Editar"
-                >
-                  Editar
-                </button>
-                <button
-                  onClick={() => onDelete(product.id)}
-                  className="btn btn-delete"
-                  title="Eliminar"
-                >
-                  Eliminar
-                </button>
+                <div className="actions-group">
+                  <button
+                    onClick={() => onSell(product.id)}
+                    className="btn btn-sell"
+                    title="Vender producto"
+                  >
+                    Vender
+                  </button>
+                  <button
+                    onClick={() => onRestock(product.id)}
+                    className="btn btn-restock"
+                    title="Recargar inventario"
+                  >
+                    Recargar
+                  </button>
+                  <button
+                    onClick={() => onViewHistory(product.id)}
+                    className="btn btn-history"
+                    title="Ver historial"
+                  >
+                    Historial
+                  </button>
+                </div>
+                <div className="actions-group secondary">
+                  <button
+                    onClick={() => onEdit(product.id)}
+                    className="btn btn-edit"
+                    title="Editar producto"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    onClick={() => onDelete(product.id)}
+                    className="btn btn-delete"
+                    title="Eliminar"
+                  >
+                    Eliminar
+                  </button>
+                </div>
               </td>
             </tr>
           ))}

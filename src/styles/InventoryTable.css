@@ -100,8 +100,23 @@
   white-space: nowrap;
 }
 
+.actions-group {
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.actions-group.secondary {
+  margin-bottom: 0;
+}
+
 .btn-edit,
-.btn-delete {
+.btn-delete,
+.btn-sell,
+.btn-restock,
+.btn-history {
   background: none;
   border: none;
   font-size: 12px;
@@ -109,7 +124,7 @@
   padding: 4px 8px;
   border-radius: 2px;
   transition: background-color 0.2s;
-  margin: 0 2px;
+  margin: 0 1px;
   line-height: 1;
   font-weight: 500;
 }
@@ -130,10 +145,34 @@
   background-color: #ffebee;
 }
 
+.btn-sell {
+  color: #1b5e20;
+}
+
+.btn-sell:hover {
+  background-color: #e8f5e9;
+}
+
+.btn-restock {
+  color: #d32f2f;
+}
+
+.btn-restock:hover {
+  background-color: #ffebee;
+}
+
+.btn-history {
+  color: #666;
+}
+
+.btn-history:hover {
+  background-color: #f5f5f5;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .inventory-table {
-    font-size: 0.85em;
+    font-size: 12px;
   }
 
   .inventory-table th,
@@ -149,19 +188,153 @@
 @media (max-width: 768px) {
   .table-container {
     overflow-x: auto;
+    margin-bottom: 12px;
   }
 
   .inventory-table {
-    min-width: 900px;
-    font-size: 0.8em;
+    font-size: 13px;
+    min-width: 100%;
   }
 
   .inventory-table th,
   .inventory-table td {
-    padding: 8px;
+    padding: 12px;
+  }
+
+  /* Ocultar columnas en tablet */
+  .inventory-table th:nth-child(3),
+  .inventory-table td:nth-child(3),
+  .inventory-table th:nth-child(4),
+  .inventory-table td:nth-child(4) {
+    display: none;
+  }
+
+  .inventory-table th:nth-child(5),
+  .inventory-table td:nth-child(5),
+  .inventory-table th:nth-child(6),
+  .inventory-table td:nth-child(6) {
+    display: none;
   }
 
   .nombre-cell {
-    max-width: 100px;
+    max-width: 200px;
+  }
+
+  .btn-edit,
+  .btn-delete {
+    font-size: 16px;
+    padding: 6px 8px;
+  }
+
+  .btn-sell,
+  .btn-restock,
+  .btn-history {
+    font-size: 11px;
+    padding: 3px 5px;
+    margin: 0;
+  }
+
+  .actions-group {
+    gap: 2px;
+    margin-bottom: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-container {
+    margin-bottom: 8px;
+    border-radius: 3px;
+  }
+
+  .inventory-table {
+    font-size: 13px;
+    min-width: 100%;
+  }
+
+  .inventory-table thead {
+    background: #f5f5f5;
+  }
+
+  .inventory-table th,
+  .inventory-table td {
+    padding: 10px 8px;
+    text-align: left;
+  }
+
+  .inventory-table th {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* Mostrar solo ID, Nombre, Stock y Acciones */
+  .inventory-table th:nth-child(3),
+  .inventory-table td:nth-child(3),
+  .inventory-table th:nth-child(4),
+  .inventory-table td:nth-child(4),
+  .inventory-table th:nth-child(5),
+  .inventory-table td:nth-child(5),
+  .inventory-table th:nth-child(6),
+  .inventory-table td:nth-child(6) {
+    display: none;
+  }
+
+  .id-cell {
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 60px;
+  }
+
+  .nombre-cell {
+    max-width: 120px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .stock-cell {
+    min-width: 50px;
+  }
+
+  .stock-badge {
+    display: inline-block;
+    padding: 5px 8px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .actions-cell {
+    white-space: nowrap;
+  }
+
+  .btn-edit,
+  .btn-delete {
+    font-size: 18px;
+    padding: 8px 10px;
+    margin: 0 3px;
+    line-height: 1;
+  }
+
+  .btn-sell,
+  .btn-restock,
+  .btn-history {
+    font-size: 10px;
+    padding: 3px 4px;
+    margin: 1px 0;
+  }
+
+  .actions-group {
+    gap: 2px;
+    margin-bottom: 4px;
+  }
+
+  .inventory-table tbody tr:hover {
+    background-color: #fafafa;
+  }
+
+  .inventory-table tbody tr.low-stock {
+    background-color: #fffaeb;
+  }
+
+  .inventory-table tbody tr.low-stock:hover {
+    background-color: #fff5d1;
   }
 }

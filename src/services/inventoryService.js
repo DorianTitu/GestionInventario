@@ -234,7 +234,21 @@ export const addProduct = (product) => {
   return newProduct;
 };
 
-// Actualizar un producto
+// Actualizar solo el stock de un producto
+export const updateStock = (id, newStock) => {
+  const products = getProducts();
+  const index = products.findIndex(p => p.id === id);
+  
+  if (index === -1) {
+    throw new Error('Producto no encontrado');
+  }
+  
+  products[index].stockActual = parseInt(newStock);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+  return products[index];
+};
+
+// Actualizar un producto (edición completa)
 export const updateProduct = (id, updatedProduct) => {
   const products = getProducts();
   const index = products.findIndex(p => p.id === id);
@@ -301,4 +315,154 @@ export const importFromJSON = (jsonData) => {
   } catch (error) {
     throw new Error('Error al importar datos: ' + error.message);
   }
+};
+
+// ==================== VENTAS ====================
+
+const SALES_KEY = 'sales_data';
+
+export const getSales = () => {
+  const stored = localStorage.getItem(SALES_KEY);
+  if (stored) {
+    return JSON.parse(stored).sales || [];
+  }
+  return [];
+};
+
+export const recordSale = (productId, saleData) => {
+  const product = getProductById(productId);
+  if (!product) {
+    throw new Error('Producto no encontrado');
+  }
+
+  // Validar que hay suficiente stock
+  if (product.stockActual < saleData.units) {
+    throw new Error(`Stock insuficiente. Disponible: ${product.stockActual}`);
+  }
+
+  const sales = getSales();
+  const totalPrice = saleData.units * saleData.unitPrice * (1 - saleData.discount / 100);
+
+  const newSale = {
+    id: `SALE-${Date.now()}`,
+    productId: productId,
+    productNombre: product.nombre,
+    clientName: saleData.clientName,
+    clientPhone: saleData.clientPhone,
+    clientCedula: saleData.clientCedula,
+    units: saleData.units,
+    unitPrice: saleData.unitPrice,
+    discount: saleData.discount || 0,
+    totalPrice: totalPrice,
+    date: new Date().toISOString()
+  };
+
+  sales.push(newSale);
+  localStorage.setItem(SALES_KEY, JSON.stringify({ sales }));
+
+  // Actualizar stock del producto
+  const newStock = product.stockActual - saleData.units;
+  updateStock(productId, newStock);
+
+  // Registrar en historial de transacciones
+  recordTransactionHistory({
+    type: 'sale',
+    productId,
+    data: newSale
+  });
+
+  return newSale;
+};
+
+export const getSalesByProduct = (productId) => {
+  const sales = getSales();
+  return sales.filter(s => s.productId === productId).sort((a, b) => new Date(b.date) - new Date(a.date));
+};
+
+// ==================== RECARGAS ====================
+
+const RESTOCKS_KEY = 'restocks_data';
+
+export const getRestocks = () => {
+  const stored = localStorage.getItem(RESTOCKS_KEY);
+  if (stored) {
+    return JSON.parse(stored).restocks || [];
+  }
+  return [];
+};
+
+export const recordRestock = (productId, units) => {
+  const product = getProductById(productId);
+  if (!product) {
+    throw new Error('Producto no encontrado');
+  }
+
+  const restocks = getRestocks();
+  const previousStock = product.stockActual;
+  const newStock = previousStock + units;
+
+  const newRestock = {
+    id: `RESTOCK-${Date.now()}`,
+    productId: productId,
+    productNombre: product.nombre,
+    unitsAdded: units,
+    previousStock: previousStock,
+    newStock: newStock,
+    date: new Date().toISOString()
+  };
+
+  restocks.push(newRestock);
+  localStorage.setItem(RESTOCKS_KEY, JSON.stringify({ restocks }));
+
+  // Actualizar stock del producto
+  updateStock(productId, newStock);
+
+  // Registrar en historial de transacciones
+  recordTransactionHistory({
+    type: 'restock',
+    productId,
+    data: newRestock
+  });
+
+  return newRestock;
+};
+
+export const getRestocksByProduct = (productId) => {
+  const restocks = getRestocks();
+  return restocks.filter(r => r.productId === productId).sort((a, b) => new Date(b.date) - new Date(a.date));
+};
+
+// ==================== HISTORIAL DE TRANSACCIONES ====================
+
+const TRANSACTIONS_KEY = 'transactions_history';
+
+export const getTransactionHistory = () => {
+  const stored = localStorage.getItem(TRANSACTIONS_KEY);
+  if (stored) {
+    return JSON.parse(stored).transactions || [];
+  }
+  return [];
+};
+
+export const recordTransactionHistory = (transaction) => {
+  const transactions = getTransactionHistory();
+  
+  const newTransaction = {
+    id: `TRANS-${Date.now()}`,
+    type: transaction.type, // 'sale' o 'restock'
+    productId: transaction.productId,
+    data: transaction.data,
+    timestamp: new Date().toISOString()
+  };
+
+  transactions.push(newTransaction);
+  localStorage.setItem(TRANSACTIONS_KEY, JSON.stringify({ transactions }));
+  return newTransaction;
+};
+
+export const getProductTransactionHistory = (productId) => {
+  const transactions = getTransactionHistory();
+  return transactions
+    .filter(t => t.productId === productId)
+    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 };
